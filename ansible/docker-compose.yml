@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+
+  mongo_db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      stdin_open: "true"
+      tty: "true"
+    ports:
+         - 27017:27017
+         
+
+  web_app:
+      image: httpd
+      ports:
+        - "8082:80"
+      stdin_open: "true"
+      tty: "true"
+      volumes:
+         - /home/centos/twitterapp:/usr/local/apache2/htdocs

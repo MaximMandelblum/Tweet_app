@@ -1,0 +1,18 @@
+---
+- name: clone from git repo
+  gather_facts: No
+  hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+
+        - name: create twitter project diretory
+          file:
+             path: /home/centos/project_dir
+             state: directory
+             mode: 0775
+
+        - name: git clone from github
+          git:
+            repo: 'https://github.com/MaximMandelblum/Tweet_app.git'
+            dest: /home/centos/project_dir

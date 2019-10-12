@@ -1,0 +1,32 @@
+---
+- name: init system
+  gather_facts: No
+  hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+
+    - name: install the latest version of epel-release , python-pip
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - epel-release
+        - python-pip
+
+    - name: install python latest pkgs
+      pip:
+          name: "{{ item }}"
+      with_items:
+        - docker
+        - pymongo
+        - tweepy
+        - docker-compose
+
+    - name: create httpd web diretory
+      file:
+       path: "{{ item }}"
+       state: directory
+       mode: 0775
+      with_items:
+       - /home/centos/twitterapp

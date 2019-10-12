@@ -1,0 +1,43 @@
+---
+- name: Install docker clinet
+  gather_facts: No
+  hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+
+      - name: Add Docker repo
+        get_url:
+          url: https://download.docker.com/linux/centos/docker-ce.repo
+          dest: /etc/yum.repos.d/docer-ce.repo
+
+
+      - name: Enable Docker Edge repo
+        ini_file:
+          dest: /etc/yum.repos.d/docer-ce.repo
+          section: "{{ item }}"
+          option: enabled
+          value: 0
+        with_items:
+            - docker-ce-edge
+            - docker-ce-test
+
+      - name: Install Docker
+        package:
+          name: docker-ce
+          state: latest
+
+      - name: Install Docker compose
+        shell: curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
+
+      - name: set permission to Docker compose
+        file:
+          path: /usr/bin/docker-compose
+          mode: 0755
+
+      - name: Start Docker service
+        service:
+          name: docker
+          state: started
+          enabled: yes
+

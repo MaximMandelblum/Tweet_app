@@ -1,0 +1,13 @@
+---
+- name: running python script for collecting tweets and storing on mongo db
+  gather_facts: No
+  hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+
+        - name:  create_collection 
+          shell: cd /home/centos/project_dir/python; python create_tweet_collection.py 127.0.0.1
+
+        - name:  tweet listener in background starting
+          shell: cd /home/centos/working_dir/python; nohup python tweety.py 127.0.0.1  2>&1 &
