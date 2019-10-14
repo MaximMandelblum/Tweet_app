@@ -20,7 +20,7 @@ ACCESS_TOKEN = ""
 ACCESS_TOKEN_SECRET = ""
 
 # app path
-with open('/root/myapp/index.html', 'a') as the_file:
+with open('/home/centos/twitterapp/index.html', 'a') as the_file:
     the_file.write("Results of tweets that contain docker word:")
     the_file.write('<br>')
 
