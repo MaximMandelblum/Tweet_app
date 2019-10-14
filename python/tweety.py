@@ -56,7 +56,7 @@ class StreamListener(tweepy.StreamListener):
             # print out a message to the screen that we have collected a tweet
             print("Tweet collected at " + str(created_at) + " , From user:" + str(username_in_tweeter) + " , The Tweet content: " + str(content_of_tweet))
             msg = "Tweet collected at " + str(created_at)+ " , From user:"+ str(username_in_tweeter) + " , The Tweet content: " + str(content_of_tweet)
-            with open('/root/myapp/index.html', 'a') as the_file:
+            with open('/home/centos/twitterapp/index.html', 'a') as the_file:
                the_file.write(msg)
                the_file.write('<br>')
             # insert the data into the mongoDB into a collection called twitterMessagesDocker
